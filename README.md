@@ -1,2 +1,6 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/39DJV9ho)
-
+# DESARROLLO DE SOFTWARE
+## Ejercicio 4
+### Integrantes
+- 56037 - Lopez Sardi, Pablo - lopezsardip@gmail.com  
+- 56142 - Luna Mendoza, Diego Elías - diego.lunamendoza@alu.frt.utn.edu.ar  
+- 56492 - Muñoz, Luciano Ezequiel - azinder2@gmail.com
