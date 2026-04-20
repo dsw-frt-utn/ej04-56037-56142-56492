@@ -4,6 +4,8 @@
  */
 package views;
 
+import data.Persistencia;
+
 /**
  *
  * @author usuario
@@ -11,13 +13,16 @@ package views;
 public class AltaVehiculo extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AltaVehiculo.class.getName());
-
+    private AltaVehiculoViewModel viewModel;
     /**
      * Creates new form AltaVehiculo
      */
     public AltaVehiculo() {
-        initComponents();
-    }
+    initComponents();
+    viewModel = new AltaVehiculoViewModel();
+    cargarCombos();
+    actualizarCamposPorTipo();
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,6 +68,7 @@ public class AltaVehiculo extends javax.swing.JFrame {
         jTextField8 = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jTextField9 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
@@ -160,6 +166,8 @@ public class AltaVehiculo extends javax.swing.JFrame {
 
         jTextField9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        jButton1.setText("Guardar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -243,7 +251,9 @@ public class AltaVehiculo extends javax.swing.JFrame {
                         .addComponent(jLabel13)
                         .addGap(37, 37, 37)
                         .addComponent(jLabel1))
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButton1)
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -308,9 +318,14 @@ public class AltaVehiculo extends javax.swing.JFrame {
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(93, 93, 93))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jButton1)))
+                .addGap(72, 72, 72))
         );
 
         pack();
@@ -321,35 +336,81 @@ public class AltaVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+        private void cargarCombos() {
+    jComboBox1.removeAllItems();
+    for(String marca : viewModel.getMarcas()) {
+        jComboBox1.addItem(marca);
+    }
+
+    jComboBox5.removeAllItems();
+    for(String sucursal : viewModel.getSucursales()) {
+        jComboBox5.addItem(sucursal);
+    }
+
+    jComboBox3.removeAllItems();
+    jComboBox3.addItem("COMBUSTIBLE");
+    jComboBox3.addItem("ELECTRICO");
+
+    jComboBox3.addActionListener(evt -> actualizarCamposPorTipo());
+}
+
+private void actualizarCamposPorTipo() {
+    boolean esCombustible = "COMBUSTIBLE".equals(jComboBox3.getSelectedItem());
+    jLabel10.setVisible(esCombustible);
+    jTextField5.setVisible(esCombustible);
+    jLabel9.setText(esCombustible ? "Km/Litro" : "kWh Base");
+}
+
+private void guardar() {
+    try {
+        viewModel.setPatente(jTextField1.getText());
+        viewModel.setNombreCompleto(jTextField7.getText());
+        viewModel.setDni(jTextField8.getText());
+        viewModel.setTelefono(jTextField9.getText());
+        viewModel.setMarca((String) jComboBox1.getSelectedItem());
+        viewModel.setModelo((String) jComboBox4.getSelectedItem());
+        viewModel.setTipo(domain.VehiculoTipo.valueOf((String) jComboBox3.getSelectedItem()));
+        viewModel.setAnio(Integer.parseInt(jTextField2.getText()));
+        viewModel.setCapacidadCarga(Double.parseDouble(jTextField3.getText()));
+        viewModel.setKmPorLitroOkwh(Double.parseDouble(jTextField4.getText()));
+        viewModel.setLitrosExtra(viewModel.esCombustible() ? Double.parseDouble(jTextField5.getText()) : 0);
+        viewModel.setKmARecorrer(Double.parseDouble(jTextField6.getText()));
+        viewModel.setSucursal((String) jComboBox5.getSelectedItem());
+
+        viewModel.guardar();
+        javax.swing.JOptionPane.showMessageDialog(this, "Vehículo guardado correctamente!");
+        dispose();
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(this,
+            "Error: verificá que los campos numéricos estén completos.",
+            "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+}
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+public static void main(String args[]) {
+    try {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new AltaVehiculo().setVisible(true));
+    } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+        logger.log(java.util.logging.Level.SEVERE, null, ex);
     }
-
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            Persistencia.inicializar();
+            new AltaVehiculo().setVisible(true);
+        }
+    });
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
