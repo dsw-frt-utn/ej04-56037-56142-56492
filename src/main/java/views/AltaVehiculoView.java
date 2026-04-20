@@ -17,6 +17,13 @@ public class AltaVehiculoView extends javax.swing.JFrame {
     /**
      * Creates new form AltaVehiculo
      */
+    private MenuPrincipal menuref1;
+    
+    public void SetMenuref (MenuPrincipal menuref2) {
+        menuref1 = menuref2;
+    }
+    
+    
     public AltaVehiculoView() {
     initComponents();
     viewModel = new AltaVehiculoViewModel();
@@ -70,9 +77,14 @@ public class AltaVehiculoView extends javax.swing.JFrame {
         jTextField9 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+                Handler1(evt);
+            }
+        });
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -354,11 +366,20 @@ public class AltaVehiculoView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
      guardar();
+     this.menuref1.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox5ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosing
+
+    private void Handler1(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_Handler1
+        this.menuref1.setVisible(true);
+    }//GEN-LAST:event_Handler1
         private void cargarCombos() {
     jComboBox1.removeAllItems();
     for(String marca : viewModel.getMarcas()) {
