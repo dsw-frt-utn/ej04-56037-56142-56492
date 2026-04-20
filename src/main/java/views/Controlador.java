@@ -56,7 +56,7 @@ public static void agregarVehiculo(VehiculoTipo tipo, String patente, String nom
         double kwhBase, double kmPorLitro, double litrosExtra) {
 
     Sucursal sucursal = Persistencia.getSucursales().stream()
-            .filter(s -> s.getCodigo().equals(codigoSucursal))
+            .filter(s -> (s.getDireccion() + " - " + s.getCiudad()).equals(codigoSucursal))
             .findFirst()
             .orElseThrow(() -> new IllegalArgumentException("Sucursal no encontrada"));
 
