@@ -6,6 +6,10 @@ import domain.VehiculoTipo;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Optional;
+import domain.Marca;
+import domain.Sucursal;
+import domain.VehiculoCombustible;
+import domain.VehiculoElectrico;
 
 public class Controlador {
     
@@ -31,4 +35,44 @@ public class Controlador {
         }
         return new double[] {consumoElectricos, consumoCombustible};
     }
+    public static ArrayList<String> getSucursales() {
+    ArrayList<String> opciones = new ArrayList<>();
+    for(Sucursal sucursal : Persistencia.getSucursales()) {
+        opciones.add(sucursal.getCodigo());
+    }
+    return opciones;
+}
+
+public static ArrayList<String> getMarcas() {
+    ArrayList<String> opciones = new ArrayList<>();
+    for(Marca marca : Persistencia.getMarcas()) {
+        opciones.add(marca.getMarca());
+    }
+    return opciones;
+}
+
+public static void agregarVehiculo(VehiculoTipo tipo, String patente, String nombreMarca,
+        String modelo, int anio, double capacidadCarga, String codigoSucursal,
+        double kwhBase, double kmPorLitro, double litrosExtra) {
+
+    Sucursal sucursal = Persistencia.getSucursales().stream()
+            .filter(s -> s.getCodigo().equals(codigoSucursal))
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("Sucursal no encontrada"));
+
+    Marca marca = Persistencia.getMarcas().stream()
+            .filter(m -> m.getMarca().equals(nombreMarca))
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("Marca no encontrada"));
+
+    Vehiculo vehiculo;
+    if(tipo == VehiculoTipo.ELECTRICO) {
+        vehiculo = new VehiculoElectrico(patente, marca, modelo, anio,
+                capacidadCarga, sucursal, kwhBase);
+    } else {
+        vehiculo = new VehiculoCombustible(patente, marca, modelo, anio,
+                capacidadCarga, sucursal, kmPorLitro, litrosExtra);
+    }
+    Persistencia.addVehiculo(vehiculo);
+}
 }
