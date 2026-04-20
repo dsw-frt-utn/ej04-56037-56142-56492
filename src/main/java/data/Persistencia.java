@@ -68,4 +68,15 @@ public class Persistencia {
         inicializarMarcas();
         inicializarVehiculos();
     }
+    public static void addVehiculo(Vehiculo vehiculo) {
+    vehiculos.add(vehiculo);
+}
+
+public static ArrayList<Sucursal> getSucursales() {
+    return sucursales;
+}
+
+public static ArrayList<Marca> getMarcas() {
+    return marcas;
+}
 }
