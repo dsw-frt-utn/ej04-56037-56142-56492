@@ -8,9 +8,9 @@ import views.AltaVehiculo;
 public class Program {
     public static void main(String[] args) throws IllegalArgumentException, InvalidPropertiesFormatException {
         Persistencia.inicializar();
-        //ListarVehiculosView view = new ListarVehiculosView();
+        ListarVehiculosView view = new ListarVehiculosView();
+        view.setVisible(true);
+        //AltaVehiculo view = new AltaVehiculo();
         //view.setVisible(true);
-                AltaVehiculo view = new AltaVehiculo();
-    view.setVisible(true);
     }
 }
