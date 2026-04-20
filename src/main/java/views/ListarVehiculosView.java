@@ -23,6 +23,8 @@ public class ListarVehiculosView extends javax.swing.JFrame {
         initComponents();
         listarVehiculos();
     }
+    
+    
     private void listarVehiculos(){
         ArrayList<VehiculoViewModel> vehiculos = Controlador.getVehiculos();
         vehiculosGrid.setModel(new DefaultTableModel(new Object[][] {}, 
@@ -42,6 +44,10 @@ public class ListarVehiculosView extends javax.swing.JFrame {
                 vehiculo.getKmARecorrer()
             });
         }
+        
+    }
+        public void refrescar () {
+        listarVehiculos();
     }
 
     /**

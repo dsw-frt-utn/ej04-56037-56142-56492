@@ -10,11 +10,13 @@ public class Program {
     public static void main(String[] args) throws IllegalArgumentException, InvalidPropertiesFormatException {
         Persistencia.inicializar();
         MenuPrincipal menu = new MenuPrincipal();
-        //menu.setVisible(true);
+        menu.setVisible(true);
         ListarVehiculosView viewlista = new ListarVehiculosView();
-        viewlista.SetMenuref(menu);
-        viewlista.setVisible(true);
         AltaVehiculoView viewalta = new AltaVehiculoView();
+        menu.SetAltaref(viewalta);
+        menu.SetListaref(viewlista);
+        viewlista.SetMenuref(menu);
+        viewalta.SetMenuref(menu);
         //view.setVisible(true);
 
         

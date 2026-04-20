@@ -18,7 +18,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public MenuPrincipal() {
         initComponents();
     }
+    private AltaVehiculoView altaref1;
+    private ListarVehiculosView listaref1;
+    
+    public void SetAltaref (AltaVehiculoView altaref2) {
+        altaref1 = altaref2;
+    }
 
+    public void SetListaref (ListarVehiculosView listaref2) {
+        listaref1 = listaref2;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -76,11 +86,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        this.altaref1.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        this.listaref1.setVisible(true);
+        this.listaref1.refrescar();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
