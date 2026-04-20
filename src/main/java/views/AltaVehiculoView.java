@@ -10,14 +10,14 @@ import data.Persistencia;
  *
  * @author usuario
  */
-public class AltaVehiculo extends javax.swing.JFrame {
+public class AltaVehiculoView extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AltaVehiculo.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AltaVehiculoView.class.getName());
     private AltaVehiculoViewModel viewModel;
     /**
      * Creates new form AltaVehiculo
      */
-    public AltaVehiculo() {
+    public AltaVehiculoView() {
     initComponents();
     viewModel = new AltaVehiculoViewModel();
     cargarCombos();
@@ -255,7 +255,7 @@ public class AltaVehiculo extends javax.swing.JFrame {
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(jLabel6)
                                                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addComponent(jLabel8))
                             .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(122, 122, 122)
@@ -430,7 +430,7 @@ public static void main(String args[]) {
     java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
             Persistencia.inicializar();
-            new AltaVehiculo().setVisible(true);
+            new AltaVehiculoView().setVisible(true);
         }
     });
 }
