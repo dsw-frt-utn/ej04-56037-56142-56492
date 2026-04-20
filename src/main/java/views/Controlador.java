@@ -38,7 +38,7 @@ public class Controlador {
     public static ArrayList<String> getSucursales() {
     ArrayList<String> opciones = new ArrayList<>();
     for(Sucursal sucursal : Persistencia.getSucursales()) {
-        opciones.add(sucursal.getCodigo());
+        opciones.add(sucursal.getDireccion() + " - " + sucursal.getCiudad());
     }
     return opciones;
 }
