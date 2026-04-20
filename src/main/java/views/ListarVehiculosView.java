@@ -12,6 +12,13 @@ public class ListarVehiculosView extends javax.swing.JFrame {
     /**
      * Creates new form ListarAnimalesView
      */
+
+    private MenuPrincipal menuref1;
+    
+    public void SetMenuref (MenuPrincipal menuref2) {
+        menuref1 = menuref2;
+    }
+    
     public ListarVehiculosView() {
         initComponents();
         listarVehiculos();
@@ -55,10 +62,17 @@ public class ListarVehiculosView extends javax.swing.JFrame {
         totalConsumoElectricosLabel = new javax.swing.JLabel();
         totalConsumoCombustibleValue = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Logística - Listar Vehículos");
         setPreferredSize(new java.awt.Dimension(640, 480));
         setSize(new java.awt.Dimension(640, 480));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                Handler1(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         vehiculosGrid.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -165,6 +179,14 @@ public class ListarVehiculosView extends javax.swing.JFrame {
          totalConsumoElectricosValue.setText(String.format("%.2f%n kWh", consumos[0]));
          totalConsumoCombustibleValue.setText(String.format("%.2f%n litros", consumos[1]));
     }//GEN-LAST:event_calcularConsumosActionPerformed
+
+    private void Handler1(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_Handler1
+        //this.menuref1.setVisible(true);
+    }//GEN-LAST:event_Handler1
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.menuref1.setVisible(true);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
