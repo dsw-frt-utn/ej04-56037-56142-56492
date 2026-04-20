@@ -167,6 +167,11 @@ public class AltaVehiculo extends javax.swing.JFrame {
         jTextField9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -341,6 +346,10 @@ public class AltaVehiculo extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
 
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+     guardar();
+    }//GEN-LAST:event_jButton1ActionPerformed
         private void cargarCombos() {
     jComboBox1.removeAllItems();
     for(String marca : viewModel.getMarcas()) {
@@ -385,11 +394,15 @@ private void guardar() {
         viewModel.guardar();
         javax.swing.JOptionPane.showMessageDialog(this, "Vehículo guardado correctamente!");
         dispose();
-    } catch (NumberFormatException e) {
-        javax.swing.JOptionPane.showMessageDialog(this,
-            "Error: verificá que los campos numéricos estén completos.",
-            "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-    }
+} catch (NumberFormatException e) {
+    javax.swing.JOptionPane.showMessageDialog(this,
+        "Error: verificá que los campos numéricos estén completos.",
+        "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+} catch (Exception e) {
+    javax.swing.JOptionPane.showMessageDialog(this,
+        "Error inesperado: " + e.getMessage(),
+        "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+}
 }
     /**
      * @param args the command line arguments
